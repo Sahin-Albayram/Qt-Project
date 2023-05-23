@@ -7,7 +7,7 @@ Game::Game()
 
 }
 void Game::newGrid(){
-   this->grid = new MyGrid(10,0);
+   this->grid = new MyGrid(50,0);
    QString X = "X";
    QString texts[30] = {"A","A","B","B","C","C","D","D","E","E","F","F","G","G","H","H","I","I","J","J","K","K","L","L","M","M","N","N","O","O"};
    for(int row=0; row<5;row++){
