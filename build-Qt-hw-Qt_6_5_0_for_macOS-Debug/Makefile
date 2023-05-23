@@ -52,8 +52,19 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Qt-hw/simplequitter.cpp 
-OBJECTS       = simplequitter.o
+SOURCES       = ../Qt-hw/colorbutton.cpp \
+		../Qt-hw/mygrid.cpp \
+		../Qt-hw/mytimer.cpp \
+		../Qt-hw/simplequitter.cpp moc_colorbutton.cpp \
+		moc_mygrid.cpp \
+		moc_mytimer.cpp
+OBJECTS       = colorbutton.o \
+		mygrid.o \
+		mytimer.o \
+		simplequitter.o \
+		moc_colorbutton.o \
+		moc_mygrid.o \
+		moc_mytimer.o
 DIST          = /Users/mestan/Qt/6.5.0/macos/mkspecs/features/spec_pre.prf \
 		/Users/mestan/Qt/6.5.0/macos/mkspecs/features/device_config.prf \
 		/Users/mestan/Qt/6.5.0/macos/mkspecs/common/unix.conf \
@@ -209,7 +220,12 @@ DIST          = /Users/mestan/Qt/6.5.0/macos/mkspecs/features/spec_pre.prf \
 		/Users/mestan/Qt/6.5.0/macos/mkspecs/features/exceptions.prf \
 		/Users/mestan/Qt/6.5.0/macos/mkspecs/features/yacc.prf \
 		/Users/mestan/Qt/6.5.0/macos/mkspecs/features/lex.prf \
-		../Qt-hw/Qt-hw.pro  ../Qt-hw/simplequitter.cpp
+		../Qt-hw/Qt-hw.pro ../Qt-hw/colorbutton.h \
+		../Qt-hw/mygrid.h \
+		../Qt-hw/mytimer.h ../Qt-hw/colorbutton.cpp \
+		../Qt-hw/mygrid.cpp \
+		../Qt-hw/mytimer.cpp \
+		../Qt-hw/simplequitter.cpp
 QMAKE_TARGET  = Qt-hw
 DESTDIR       = 
 TARGET        = Qt-hw.app/Contents/MacOS/Qt-hw
@@ -582,7 +598,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../Qt-hw/simplequitter.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Qt-hw/colorbutton.h ../Qt-hw/mygrid.h ../Qt-hw/mytimer.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Qt-hw/colorbutton.cpp ../Qt-hw/mygrid.cpp ../Qt-hw/mytimer.cpp ../Qt-hw/simplequitter.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -611,8 +628,37 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_colorbutton.cpp moc_mygrid.cpp moc_mytimer.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_colorbutton.cpp moc_mygrid.cpp moc_mytimer.cpp
+moc_colorbutton.cpp: ../Qt-hw/colorbutton.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers/QPalette \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers/qpalette.h \
+		/Users/mestan/Qt/6.5.0/macos/libexec/moc
+	/Users/mestan/Qt/6.5.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=14 -D__clang_minor__=0 -D__clang_patchlevel__=3 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/mestan/Qt/6.5.0/macos/mkspecs/macx-clang -I/Users/mestan/Desktop/school/3.2/CmpE230/Qt-Project/Qt-hw -I/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers -I/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers -I/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/14.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/mestan/Qt/6.5.0/macos/lib ../Qt-hw/colorbutton.h -o moc_colorbutton.cpp
+
+moc_mygrid.cpp: ../Qt-hw/mygrid.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QGridLayout \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers/QTimer \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers/qtimer.h \
+		/Users/mestan/Qt/6.5.0/macos/libexec/moc
+	/Users/mestan/Qt/6.5.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=14 -D__clang_minor__=0 -D__clang_patchlevel__=3 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/mestan/Qt/6.5.0/macos/mkspecs/macx-clang -I/Users/mestan/Desktop/school/3.2/CmpE230/Qt-Project/Qt-hw -I/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers -I/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers -I/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/14.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/mestan/Qt/6.5.0/macos/lib ../Qt-hw/mygrid.h -o moc_mygrid.cpp
+
+moc_mytimer.cpp: ../Qt-hw/mytimer.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers/QTimer \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers/qtimer.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QLabel \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		/Users/mestan/Qt/6.5.0/macos/libexec/moc
+	/Users/mestan/Qt/6.5.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=14 -D__clang_minor__=0 -D__clang_patchlevel__=3 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/mestan/Qt/6.5.0/macos/mkspecs/macx-clang -I/Users/mestan/Desktop/school/3.2/CmpE230/Qt-Project/Qt-hw -I/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers -I/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers -I/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/14.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/mestan/Qt/6.5.0/macos/lib ../Qt-hw/mytimer.h -o moc_mytimer.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -627,15 +673,71 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: 
+compiler_clean: compiler_moc_header_clean 
 
 ####### Compile
 
+colorbutton.o: ../Qt-hw/colorbutton.cpp ../Qt-hw/colorbutton.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers/QPalette \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers/qpalette.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o colorbutton.o ../Qt-hw/colorbutton.cpp
+
+mygrid.o: ../Qt-hw/mygrid.cpp ../Qt-hw/mygrid.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QGridLayout \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers/QTimer \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers/qtimer.h \
+		../Qt-hw/colorbutton.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers/QPalette \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers/qpalette.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mygrid.o ../Qt-hw/mygrid.cpp
+
+mytimer.o: ../Qt-hw/mytimer.cpp ../Qt-hw/mytimer.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers/QTimer \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers/qtimer.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QLabel \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qmessagebox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mytimer.o ../Qt-hw/mytimer.cpp
+
 simplequitter.o: ../Qt-hw/simplequitter.cpp /Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QApplication \
 		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qapplication.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QSpacerItem \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		../Qt-hw/colorbutton.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers/QPalette \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtGui.framework/Headers/qpalette.h \
+		../Qt-hw/mytimer.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers/QTimer \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtCore.framework/Headers/qtimer.h \
 		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QLabel \
-		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qlabel.h
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../Qt-hw/mygrid.h \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/QGridLayout \
+		/Users/mestan/Qt/6.5.0/macos/lib/QtWidgets.framework/Headers/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o simplequitter.o ../Qt-hw/simplequitter.cpp
+
+moc_colorbutton.o: moc_colorbutton.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_colorbutton.o moc_colorbutton.cpp
+
+moc_mygrid.o: moc_mygrid.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mygrid.o moc_mygrid.cpp
+
+moc_mytimer.o: moc_mytimer.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mytimer.o moc_mytimer.cpp
 
 ####### Install
 
